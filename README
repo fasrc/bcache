@@ -1,0 +1,68 @@
+bcache -- caching versions of LSF's bjobs and bhist
+
+See `bcache --help' for more information.  The output of that is reproduced 
+here, but may be out of date:
+
+-------------------------------------------------------------------------------
+
+
+NAME
+    bjobsc/bhistc - caching versions of LSF's bjobs and bhist
+
+SYNOPSIS
+    bjobsc [OPTIONS --] [BJOBS_OPTIONS_AND_ARGS]
+    bhistc [OPTIONS --] [BHIST_OPTIONS_AND_ARGS]
+
+DESCRIPTION
+    This same script is used for caching of both bjobs and bhist.  Symlink to 
+    it as anything with `bjobs' or `bhist' in the named, respectively, 
+    including simply `bjobs' or `bhist' (in that case put its parent 
+    directory in the PATH before LSF's bin directory).
+
+    If this is called with BJOBS_OPTIONS_AND_ARGS/BHIST_OPTIONS_AND_ARGS being 
+    one JOBID, it tries to construct a response from previously saved output of 
+    `bjobs/bhist -a'.  If the cache is not present or has expired this attempts
+    to build it (unless --do-not-update-cache is specified).  Otherwise, or if 
+    anything else goes wrong, this falls back to running the actual bjobs/bhist 
+    command.  Furthermore, if the given JOBID is greater than any jobid in the 
+    cache, it falls back to running the actual command.
+
+    When producing an answer from cache, this attempts to properly reproduce 
+    stdout, stderr, and exit status so that it's indistinguishable from 
+    non-cached output.  Furthermore, since this script execs the actual command 
+    in any cases it can't handle, it's meant as a drop-in replacement for the 
+    bjobs or bhist command -- no command line changes required.
+
+    Note that both this command and bjobs/bhist may require options.  All 
+    options to this command must be specified first and end with the special 
+    separator --.  Note that getopt is *not* used to parse this command's 
+    options (and, e.g. --long-opt=OPTARG will not work).
+
+OPTIONS
+    --cache-dir DIRECTORY
+        Directory to store cache (and lock, temporary, etc.) files.  Default is 
+        /tmp.
+    
+    --lifetime SECONDS
+        Cache validity lifetime.  Default is 600 (as of writing).
+    
+    --do-not-update-cache
+        If the cache has expired, attempt to refresh it.  Default is to not do 
+        this.  This uses locks and temp files to make this go as smoothly as 
+        possible in an environment when this is called heavily and 
+        asynchronously.
+
+    --extra-args ARGS
+        Extra args to add to the bjobs or bhist command when making the cache.  
+        E.g., `-u USERNAME' if this will be used for anybody but the calling 
+        user.  These are not added when caching fails and the given command is run as-is.
+    
+    --debug
+        Print extra diagnostic messages to stderr.
+
+    -h, --help
+        Print this help.
+
+AUTHOR
+    John Brunelle <john_brunelle@harvard.edu>
+    Harvard FAS Research Computing
