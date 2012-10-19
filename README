@@ -1,7 +1,14 @@
 bcache -- caching versions of LSF's bjobs and bhist
 
 See `bcache --help' for more information.  The output of that is reproduced 
-here, but may be out of date:
+below, but may be out of date.
+
+See also:
+
+https://software.rc.fas.harvard.edu/jab/atlas/bcache/
+
+This is the case study that prompted the development of this, and at the bottom 
+there are plots showing the increased performance.
 
 -------------------------------------------------------------------------------
 
