@@ -62,7 +62,8 @@ OPTIONS
     --extra-args ARGS
         Extra args to add to the bjobs or bhist command when making the cache.  
         E.g., `-u USERNAME' if this will be used for anybody but the calling 
-        user.  These are not added when caching fails and the given command is run as-is.
+        user.  These are not added when caching fails and the given command is 
+        run as-is.
     
     --debug
         Print extra diagnostic messages to stderr.
