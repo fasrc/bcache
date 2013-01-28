@@ -33,6 +33,14 @@ DESCRIPTION
     separator --.  Note that getopt is *not* used to parse this command's 
     options (and, e.g. --long-opt=OPTARG will not work).
 
+	
+	See also:
+
+        https://software.rc.fas.harvard.edu/jab/atlas/bcache/
+
+    This is the case study that prompted the development of this, and at the 
+    bottom there are plots showing the increased performance.
+
 OPTIONS
     --cache-dir DIRECTORY
         Directory to store cache (and lock, temporary, etc.) files.  Default is 
